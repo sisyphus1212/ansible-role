@@ -5,5 +5,5 @@
   run_once: true
 
 - name: cpoy tool to target host
-  import_tasks: fetch_file.yml
+  import_tasks: copy_file.yml
   when: soc_2100p
