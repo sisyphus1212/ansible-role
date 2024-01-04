@@ -21,6 +21,11 @@
         msg: "Restart failed, host: {{ inventory_hostname }}"
       when: soc_2100p
 
+- name: Rboot System
+  import_tasks: reboot_system.yml
+  var:
+    host: {{ soc_2100p }}
+
 - name: Cpoy tool to target soc
   import_tasks: copy_file.yml
   when: soc_2100p
