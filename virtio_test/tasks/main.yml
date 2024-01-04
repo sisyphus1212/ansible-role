@@ -1,0 +1,7 @@
+---
+# tasks file for /root/ansible/roles/issue
+-  name: delever issue file
+   copy:
+      src: myfile.txt
+      dest: /root
+#调用template模块将myfile.txt文件拷贝给被管理端主机.
