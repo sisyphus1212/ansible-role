@@ -15,6 +15,11 @@
   loop: "{{ local_file_stats.results }}"
   when: item.stat.exists
 
+- name: Debug remote_file_epoch
+  debug:
+    var: item
+  loop: "{{ remote_file_heads.results }}"
+
 - name: Convert remote file's last modified time to epoch for each file
   set_fact:
     remote_file_epoch: "{{ remote_file_epoch | default({}) | combine({item.item.dest: lookup('pipe', 'date +%s --date=\"' + item.last_modified + '\"') }) }}"
