@@ -35,6 +35,15 @@
   debug:
     var: remote_file_epoch
 
+- name: Debug time_diff
+  debug:
+    var: remote_file_epoch
+  loop: "{{ local_file_stats.results }}"
+  when: >
+    (item.stat.exists and
+    (item.stat.mtime | int < (remote_file_epoch[item.item.dest] | int))) or
+    (not item.stat.exists)
+
 - name: Download file if remote file is newer than local file
   ansible.builtin.get_url:
     url: "{{ item.item.url }}"
