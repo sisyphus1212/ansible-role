@@ -6,7 +6,8 @@
 
 - name: Print Last-Modified header
   ansible.builtin.debug:
-    msg: "Last-Modified time is {{ web_head.headers['Last-Modified'] }}"
+    var: web_head
+    #msg: "Last-Modified time is {{ web_head.headers['Last-Modified'] }}"
 
 - name: Download foo.conf
   ansible.builtin.get_url:
