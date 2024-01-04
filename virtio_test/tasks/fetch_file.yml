@@ -21,9 +21,9 @@
     dest: "{{ item.item.item.dest }}"
     use_proxy: no
     mode: '0440'
-  environment:
-    http_proxy: ""
-    https_proxy: ""
+  #environment:
+  #  http_proxy: ""
+  #  https_proxy: ""
   loop: "{{ remote_file_heads.results }}"
   when: >
     (item.status == 200) and
