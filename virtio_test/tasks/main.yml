@@ -10,7 +10,7 @@
       ansible.builtin.reboot:
         msg: "Operating System is about to restart, host:{{ inventory_hostname }}, group:{{ group_names | join(', ') }}"
         reboot_timeout: 600
-      when: soc_2100p or host_2100p
+      when: soc_2100p
   rescue:
     - name: Handle reboot failure
       debug:
