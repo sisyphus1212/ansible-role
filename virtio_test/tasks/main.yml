@@ -6,4 +6,4 @@
 
 - name: cpoy tool to target host
   import_tasks: fetch_file.yml
-  when: soc_2100p
+  when: {{ soc_2100p }}
