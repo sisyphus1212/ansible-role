@@ -2,6 +2,7 @@
 - name: cpoy tool to target host
   import_tasks: fetch_file.yml
   delegate_to: localhost
+  run_once: true
 
 - name: cpoy tool to target host
   import_tasks: copy_file.yml
