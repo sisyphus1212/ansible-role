@@ -14,10 +14,10 @@
   with_items:
     - { src: '/tmp/script.tar.gz', dest: '/root/test/tmp/script.tar.gz'}
 
-    - name: Unarchive tar.gz files
-      ansible.builtin.unarchive:
-        src: "{{ item.src }}"
-        dest: "{{ item.dest }}"
-        remote_src: yes
-      loop:
-        - { src: "/root/test/tmp/script.tar.gz", dest: "/root/test/" }
+- name: Unarchive tar.gz files
+  ansible.builtin.unarchive:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    remote_src: yes
+  loop:
+    - { src: "/root/test/tmp/script.tar.gz", dest: "/root/test/" }
