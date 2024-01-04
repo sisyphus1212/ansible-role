@@ -27,11 +27,11 @@
 
 - name: trex_udp_test server start
   import_tasks: start_trex_udp_client.yml
-  when: soc_2100p and udp_test
+  when: soc_2100p and udp
 
 - name: trex_udp_test client start
   import_tasks: start_trex_udp_client.yml
-  when: soc_2100p and tcp_test
+  when: soc_2100p and tcp
 
 
 
