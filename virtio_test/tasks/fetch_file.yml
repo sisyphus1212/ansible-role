@@ -31,9 +31,9 @@
   loop: "{{ remote_file_heads.results }}"
   when: item.last_modified is defined
 
-#- name: Debug remote_file_epoch
-#  debug:
-#    var: remote_file_epoch
+- name: Debug remote_file_epoch
+  debug:
+    var: remote_file_epoch
 
 - name: Download file if remote file is newer than local file
   ansible.builtin.get_url:
