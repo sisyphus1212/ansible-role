@@ -4,5 +4,5 @@
   delegate_to: localhost
   run_once: true
 
-  - include: fetch_file.yml
-  when: "'soc_2100p' in {{group_names}}"
+  - include_tasks: fetch_file.yml
+    when: "'soc_2100p' in {{group_names}}"
