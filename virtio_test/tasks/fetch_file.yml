@@ -35,5 +35,5 @@
   loop: "{{ remote_file_heads.results }}"
   when: >
     (item.status == 200) and
-    (local_file_stats.results | selectattr('item.dest', 'equalto', item.item.item.dest) | map(attribute='stat.mtime') | list | first | default(0) | int < ansible_date_time.epoch | int) or
+    (local_file_stats.results | selectattr('item.dest', 'equalto', item.item.item.dest) | map(attribute='stat.mtime') | list | first | default(0) | int < ansible_date_time | int) or
     (not item.item.item.stat.exists)
