@@ -1,0 +1,8 @@
+- name: Copy multiple files in Ansible with different permissions
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode }}"
+  with_items:
+    - { src: 'myfile.txt',dest: '/root', mode: '0777'}
+    - { src: 'script/test.sh',dest: '/root', mode: '0707'}
