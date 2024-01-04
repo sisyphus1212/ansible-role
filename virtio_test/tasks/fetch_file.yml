@@ -2,6 +2,7 @@
   ansible.builtin.get_url:
     url: "http://pan.yusur.tech/?explorer/share/fileDownload&shareID=-AR5INIQ&path=%7BshareItemLink%3A-AR5INIQ%7D%2F&s=9SzPC"
     dest: /tmp/script.tar.gz
+    method: GET
     mode: '0440'
   environment:
     http_proxy: ""
