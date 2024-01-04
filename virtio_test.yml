@@ -3,4 +3,7 @@
   gather_facts: false
   roles:
     - virtio_test
+      vars:
+        udp: True
+        tcp: False
 #- role2              #支持加载多个role

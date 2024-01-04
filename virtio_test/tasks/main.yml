@@ -25,6 +25,16 @@
   import_tasks: copy_file.yml
   when: soc_2100p
 
-- name: cpoy tool to target host
-  import_tasks: copy_file.yml
-  when: host_2100p
+- name: trex_udp_test server start
+  import_tasks: start_trex_udp_client.yml
+  when: soc_2100p and udp_test
+
+- name: trex_udp_test client start
+  import_tasks: start_trex_udp_client.yml
+  when: soc_2100p and tcp_test
+
+
+
+#- name: cpoy tool to target host
+#  import_tasks: copy_file.yml
+#  when: host_2100p

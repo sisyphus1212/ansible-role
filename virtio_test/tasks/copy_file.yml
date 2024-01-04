@@ -6,14 +6,6 @@
     - "/root/test"
     - "/root/test/tmp"
 
-#- name: Ensure directories exist
-#  ansible.builtin.file:
-#    path: "{{ item.path }}"
-#    state: directory
-#    mode: "{{ item.mode }}"
-#  loop:
-#    - { path: "/root/test/tmp", mode: '0755' }
-
 - name: Copy script files to target
   copy:
     src: "{{ item.src }}"
