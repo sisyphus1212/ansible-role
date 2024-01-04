@@ -8,7 +8,7 @@
 
 - name: Print Last-Modified header
   ansible.builtin.debug:
-    var: local_file_stats
+    #var: local_file_stats
     msg: "local_file_stats is {{ local_file_stats }}"
 
 - name: Get remote file modification time
@@ -22,7 +22,7 @@
 
 - name: Print Last-Modified header
   ansible.builtin.debug:
-    var: remote_file_heads
+    #var: remote_file_heads
     msg: "remote_file_heads is {{ remote_file_heads }}"
 
 - name: Get URL headers
