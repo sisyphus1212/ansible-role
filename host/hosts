@@ -4,8 +4,8 @@
 [soc_2100p]
 192.168.28.198 ansible_ssh_user=root ansible_ssh_pass=hados
 
-[all:vars]
-soc_2100p=False
+#[all:vars]
+#soc_2100p=False
 
 [soc_2100p:vars]
 soc_2100p=True
