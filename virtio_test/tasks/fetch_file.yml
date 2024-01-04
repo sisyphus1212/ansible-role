@@ -1,3 +1,13 @@
+- name: Get URL headers
+  ansible.builtin.uri:
+    url: "http://pan.yusur.tech/?explorer/share/fileDownload&shareID=-APoFv5w&path=%7BshareItemLink%3A-APoFv5w%7D%2F&s=y7o1X"
+    method: HEAD
+  register: web_head
+
+- name: Print Last-Modified header
+  ansible.builtin.debug:
+    msg: "Last-Modified time is {{ web_head.headers['Last-Modified'] }}"
+
 - name: Download foo.conf
   ansible.builtin.get_url:
     url: "{{ item.url }}"
