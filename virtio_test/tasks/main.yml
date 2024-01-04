@@ -15,6 +15,8 @@
             msg: "重启失败，主机：{{ inventory_hostname }}"
   rescue:
     - name: Handle reboot failure
+      debug:
+        msg: "重启失败，主机：{{ inventory_hostname }}"
 
 - name: cpoy tool to target soc
   import_tasks: copy_file.yml
