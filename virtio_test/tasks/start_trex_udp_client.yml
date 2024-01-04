@@ -1,3 +1,18 @@
-- name: Handle udp test
-  debug:
-    msg: "udp test ok"
+- name: Configure function queue
+  shell: |
+    function config_func_queue() {
+        echo $VIRTIO_PCI $VIRTIO_BAR 0x5c35000 0x00010000
+        echo $VIRTIO_PCI $VIRTIO_BAR 0x5c35004 0x00810080
+        echo $VIRTIO_PCI $VIRTIO_BAR 0x5c35008 0x00800001
+        echo $VIRTIO_PCI $VIRTIO_BAR 0x5c3500c 0x00000081
+        echo $VIRTIO_PCI $VIRTIO_BAR 0x5c35010 0x00020002
+        echo $VIRTIO_PCI $VIRTIO_BAR 0x5c35014 0x00020002
+    }
+
+    # 执行函数
+    config_func_queue
+  args:
+    executable: /bin/bash
+  environment:
+    VIRTIO_PCI: '0x0'  # 请根据实际情况替换这些值
+    VIRTIO_BAR: '0x5'
