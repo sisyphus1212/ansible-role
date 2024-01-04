@@ -11,12 +11,10 @@
       msg: "Operating System is about to restart, host:{{ inventory_hostname }}, group:{{ group_names | join(', ') }}"
       reboot_timeout: 600
     when: soc_2100p | host_2100p
-          debug:
-            msg: "重启失败，主机：{{ inventory_hostname }}"
   rescue:
     - name: Handle reboot failure
       debug:
-        msg: "重启失败，主机：{{ inventory_hostname }}"
+        msg: "Restart failed, host: {{ inventory_hostname }}"
 
 - name: cpoy tool to target soc
   import_tasks: copy_file.yml
