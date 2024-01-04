@@ -15,13 +15,17 @@
   loop: "{{ local_file_stats.results }}"
   when: item.stat.exists
 
+- name: Flatten local file stats
+  set_fact:
+    flat_local_file_stats: "{{ local_file_stats.results | map(attribute='item') | list }}"
+
 - name: Set ansible_date_time for remote file's last modified time
   set_fact:
     ansible_date_time: "{{ lookup('pipe', 'date +%s --date=\"' + (remote_file_heads.results[0].last_modified if remote_file_heads.results[0].last_modified is defined else '1970-01-01') + '\"') }}"
 
 - name: Debug ansible_date_time
   debug:
-    msg: "The epoch time for last modified is {{ ansible_date_time }}"
+    msg: "The epoch time for last modified is {{ ansible_date_time }} ==== {{ flat_local_file_stats }}"
 
 - name: Download file if remote file is newer than local file
   ansible.builtin.get_url:
