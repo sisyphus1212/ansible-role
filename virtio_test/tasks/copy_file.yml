@@ -3,9 +3,7 @@
     cmd: "[ -d {{ item }} ] && rm -rf {{ item }}/*"
     warn: false
   loop:
-    - "/root/test1"
-    - "/root/test2"
-    - "/root/test3"
+    - "/root/test"
 
 - name: Ensure directories exist
   ansible.builtin.file:
