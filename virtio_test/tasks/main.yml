@@ -33,8 +33,6 @@
   import_tasks: start_trex_udp_client.yml
   when: soc_2100p and tcp
 
-
-
 #- name: cpoy tool to target host
 #  import_tasks: copy_file.yml
 #  when: host_2100p

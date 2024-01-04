@@ -1,0 +1,5 @@
+- name: Bitstream Loading
+  shell:
+    #cmd: {{ vivado_lab }} -mode tcl -source {{ bits_file }}
+    cmd: {{ vivado_lab }}
+    warn: false
