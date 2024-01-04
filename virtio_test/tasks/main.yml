@@ -4,7 +4,10 @@
   delegate_to: localhost
   run_once: true
 
-- name: cpoy tool to target host
+- name: cpoy tool to target soc
   import_tasks: copy_file.yml
   when: soc_2100p
 
+- name: cpoy tool to target host
+  import_tasks: copy_file.yml
+  when: host_2100p
