@@ -6,13 +6,14 @@
 
 - name: reboot
   block:
-    - name: Rebooting the server
-      ansible.builtin.reboot:
-        reboot_timeout: 600
-      when: soc_2100p
     - name: Reboot message
       debug:
         msg: "Operating System is about to restart, host:{{ inventory_hostname }}, group:{{ group_names | join(', ') }}"
+      when: soc_2100p
+    - name: Rebooting the server
+      ansible.builtin.reboot:
+        msg: "Operating System is about to restart, host:{{ inventory_hostname }}, group:{{ group_names | join(', ') }}"
+        reboot_timeout: 600
       when: soc_2100p
   rescue:
     - name: Handle reboot failure
