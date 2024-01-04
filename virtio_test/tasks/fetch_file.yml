@@ -15,6 +15,14 @@
   loop: "{{ local_file_stats.results }}"
   when: item.stat.exists
 
+- name: Set ansible_date_time for remote file's last modified time
+  set_fact:
+    ansible_date_time: "{{ lookup('pipe', 'date +%s --date=\"' + (remote_file_heads.results[0].last_modified if remote_file_heads.results[0].last_modified is defined else '1970-01-01') + '\"') }}"
+
+- name: Debug ansible_date_time
+  debug:
+    msg: "The epoch time for last modified is {{ ansible_date_time }}"
+
 - name: Download file if remote file is newer than local file
   ansible.builtin.get_url:
     url: "{{ item.item.item.url }}"
@@ -29,5 +37,3 @@
     (item.status == 200) and
     (local_file_stats.results | selectattr('item.dest', 'equalto', item.item.item.dest) | map(attribute='stat.mtime') | list | first | default(0) | int < ansible_date_time.epoch | int) or
     (not item.item.item.stat.exists)
-  vars:
-    ansible_date_time: "{{ lookup('pipe', 'date +%s --date=\"' + (item.last_modified if item.last_modified is defined else '1970-01-01') + '\"') }}"
