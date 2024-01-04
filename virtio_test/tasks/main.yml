@@ -1,7 +1,7 @@
 ---
 - name: cpoy tool to target host
-  local_action:
-    import_tasks: fetch_file.yml
+  import_tasks: fetch_file.yml
+  delegate_to: localhost
 
 - name: cpoy tool to target host
   import_tasks: copy_file.yml
