@@ -18,7 +18,7 @@
     - name: Handle reboot failure
       debug:
         msg: "Restart failed, host: {{ inventory_hostname }}"
-    when: soc_2100p
+      when: soc_2100p
 
 - name: cpoy tool to target soc
   import_tasks: copy_file.yml
