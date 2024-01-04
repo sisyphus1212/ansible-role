@@ -1,13 +1,37 @@
+- name: Check local file modification time
+  ansible.builtin.stat:
+    path: "{{ item.dest }}"
+  register: local_file_stats
+  loop:
+    - { url: "http://pan.yusur.tech/?explorer/share/fileDownload&shareID=-AR5INIQ&path=%7BshareItemLink%3A-AR5INIQ%7D%2F&s=9SzPC", dest: "/tmp/script.tar.gz" }
+    - { url: "http://pan.yusur.tech/?explorer/share/fileDownload&shareID=-APoFv5w&path=%7BshareItemLink%3A-APoFv5w%7D%2F&s=y7o1X", dest: "/tmp/k_machine_2100p_virt_c_civ.bit" }
+
+- name: Print Last-Modified header
+  ansible.builtin.debug:
+    var: local_file_stats
+    msg: "local_file_stats is {{ local_file_stats }}"
+
+- name: Get remote file modification time
+  ansible.builtin.uri:
+    url: "{{ item.item.url }}"
+    method: HEAD
+    return_content: no
+  register: remote_file_heads
+  loop: "{{ local_file_stats.results }}"
+  when: item.stat.exists
+
+- name: Print Last-Modified header
+  ansible.builtin.debug:
+    var: remote_file_heads
+    msg: "remote_file_heads is {{ remote_file_heads }}"
+
 - name: Get URL headers
   ansible.builtin.uri:
     url: "http://pan.yusur.tech/?explorer/share/fileDownload&shareID=-APoFv5w&path=%7BshareItemLink%3A-APoFv5w%7D%2F&s=y7o1X"
     method: HEAD
   register: web_head
 
-- name: Print Last-Modified header
-  ansible.builtin.debug:
-    var: web_head
-    #msg: "Last-Modified time is {{ web_head.headers['Last-Modified'] }}"
+
 
 - name: Download foo.conf
   ansible.builtin.get_url:
