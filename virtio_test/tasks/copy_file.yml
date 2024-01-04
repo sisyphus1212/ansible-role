@@ -1,6 +1,6 @@
 - name: Remove all contents from multiple directories
-  ansible.builtin.shell:
-    _raw_params: "[ -d {{ item }} ] && rm -rf {{ item }}/*"
+  shell:
+    cmd: "[ -d {{ item }} ] && rm -rf {{ item }}/*"
     warn: false
   loop:
     - "/root/test"
