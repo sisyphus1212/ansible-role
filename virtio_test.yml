@@ -1,5 +1,5 @@
 ---
-- hosts: test
+- hosts: all
   roles:
     - virtio_test
 #- role2              #支持加载多个role
