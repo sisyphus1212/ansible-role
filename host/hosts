@@ -7,5 +7,5 @@
 [vars:all]
 soc_2100p=False
 
-[host_2100p:vars]
-host_2100p=True
+[soc_2100p:vars]
+soc_2100p=True
