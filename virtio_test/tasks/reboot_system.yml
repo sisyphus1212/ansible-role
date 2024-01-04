@@ -1,3 +1,7 @@
+- name: Debug Reboot message
+  debug:
+    var: host
+
 - name: Reboot
   block:
     - name: Reboot message
