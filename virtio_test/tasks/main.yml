@@ -1,3 +1,6 @@
 ---
 - name: cpoy tool to target host
+  import_tasks: fetch_file.yml
+
+- name: cpoy tool to target host
   import_tasks: copy_file.yml
