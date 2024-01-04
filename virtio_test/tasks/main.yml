@@ -27,7 +27,8 @@
 
 - name: Program device
   import_tasks: bitstream_loading.yml
-  when: soc_2100p
+  delegate_to: localhost
+  run_once: true
 
 - name: Trex_udp_test server start
   import_tasks: start_trex_udp_client.yml

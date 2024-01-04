@@ -1,5 +1,11 @@
 - name: Bitstream Loading
+  register: result
   shell:
     #cmd: {{ vivado_lab }} -mode tcl -source {{ bits_file }}
     cmd: "{{ vivado_lab }}"
     warn: false
+
+- name: Show Bitstream Loading Result
+  debug:
+    msg: "Restart failed, host: {{ inventory_hostname }}"
+  when: soc_2100p
