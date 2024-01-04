@@ -2,4 +2,4 @@
 192.168.28.197 ansible_ssh_user=root ansible_ssh_pass="8826"
 
 [2100p-soc]
-192.168.28.198 ansible_ssh_user=hados ansible_ssh_pass=hados
+192.168.28.198 ansible_ssh_user=root ansible_ssh_pass=hados
