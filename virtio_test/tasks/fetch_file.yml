@@ -37,7 +37,7 @@
 
 - name: Debug time diff
   debug:
-    mesg: (remote_file_epoch[item.item.dest] | int) (item.stat.mtime | int)
+    msg: "item.stat.mtime: {{ item.stat.mtime }}, remote_file_epoch: {{ remote_file_epoch[item.item.dest] }}"
   loop: "{{ local_file_stats.results }}"
   when: >
     (item.stat.exists and
