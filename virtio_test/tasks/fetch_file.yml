@@ -1,6 +1,10 @@
-
-- name: Download script
-  command: wget -O /tmp/script.tar.gz "http://pan.yusur.tech/?explorer/share/fileDownload&shareID=-AR5INIQ&path=%7BshareItemLink%3A-AR5INIQ%7D%2F&s=9SzPC"
+- name: Download foo.conf
+  hosts: localhost
+  ansible.builtin.get_url:
+    url: "http://pan.yusur.tech/?explorer/share/fileDownload&shareID=-AR5INIQ&path=%7BshareItemLink%3A-AR5INIQ%7D%2F&s=9SzPC"
+    dest: /tmp/script.tar.gz
+    use_proxy: no
+    mode: '0440'
   environment:
     http_proxy: ""
     https_proxy: ""
