@@ -1,3 +1,11 @@
+- name: Ensure directories exist
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: directory
+    mode: "{{ item.mode }}"
+  loop:
+    - { path: "/root/script", mode: '0755' }
+
 - name: Copy script files to target
   copy:
     src: "{{ item.src }}"
