@@ -52,7 +52,7 @@
     mode: '0440'
     force: true
   loop: "{{ local_file_stats.results }}"
-  when: >
-    (item.stat.exists and
-    (item.stat.mtime | int < (remote_file_epoch[item.item.dest] | int))) or
-    (not item.stat.exists)
+  #when: >
+  #  (item.stat.exists and
+  #  (item.stat.mtime | int < (remote_file_epoch[item.item.dest] | int))) or
+  #  (not item.stat.exists)
