@@ -1,47 +1,35 @@
-- name: Check local file modification time
-  ansible.builtin.stat:
-    path: "{{ item.dest }}"
-  register: local_file_stats
-  loop:
-    - { url: "http://pan.yusur.tech/?explorer/share/fileDownload&shareID=-AR5INIQ&path=%7BshareItemLink%3A-AR5INIQ%7D%2F&s=9SzPC", dest: "/tmp/script.tar.gz" }
-    - { url: "http://pan.yusur.tech/?explorer/share/fileDownload&shareID=-APoFv5w&path=%7BshareItemLink%3A-APoFv5w%7D%2F&s=y7o1X", dest: "/tmp/k_machine_2100p_virt_c_civ.bit" }
+- hosts: all
+  tasks:
+    - name: Check local file modification time
+      ansible.builtin.stat:
+        path: "{{ item.dest }}"
+      register: local_file_stats
+      loop:
+        - { url: "http://pan.yusur.tech/?explorer/share/fileDownload&shareID=-AR5INIQ&path=%7BshareItemLink%3A-AR5INIQ%7D%2F&s=9SzPC", dest: "/tmp/script.tar.gz" }
+        - { url: "http://pan.yusur.tech/?explorer/share/fileDownload&shareID=-APoFv5w&path=%7BshareItemLink%3A-APoFv5w%7D%2F&s=y7o1X", dest: "/tmp/k_machine_2100p_virt_c_civ.bit" }
 
-- name: Print Last-Modified header
-  ansible.builtin.debug:
-    #var: local_file_stats
-    msg: "local_file_stats is {{ local_file_stats.results }}"
+    - name: Get remote file modification time
+      ansible.builtin.uri:
+        url: "{{ item.item.url }}"
+        method: HEAD
+        return_content: no
+      register: remote_file_heads
+      loop: "{{ local_file_stats.results }}"
+      when: item.stat.exists
 
-- name: Get remote file modification time
-  ansible.builtin.uri:
-    url: "{{ item.item.url }}"
-    method: HEAD
-    return_content: no
-  register: remote_file_heads
-  loop: "{{ local_file_stats.results }}"
-  when: item.stat.exists
-
-- name: Print Last-Modified header
-  ansible.builtin.debug:
-    #var: remote_file_heads
-    msg: "remote_file_heads is {{ remote_file_heads }}"
-
-- name: Get URL headers
-  ansible.builtin.uri:
-    url: "http://pan.yusur.tech/?explorer/share/fileDownload&shareID=-APoFv5w&path=%7BshareItemLink%3A-APoFv5w%7D%2F&s=y7o1X"
-    method: HEAD
-  register: web_head
-
-
-
-- name: Download foo.conf
-  ansible.builtin.get_url:
-    url: "{{ item.url }}"
-    dest: "{{ item.dest }}"
-    use_proxy: no
-    mode: '0440'
-  environment:
-    http_proxy: ""
-    https_proxy: ""
-  loop:
-    - { url: "http://pan.yusur.tech/?explorer/share/fileDownload&shareID=-AR5INIQ&path=%7BshareItemLink%3A-AR5INIQ%7D%2F&s=9SzPC", dest: "/tmp/script.tar.gz" }
-    - { url: "http://pan.yusur.tech/?explorer/share/fileDownload&shareID=-APoFv5w&path=%7BshareItemLink%3A-APoFv5w%7D%2F&s=y7o1X", dest: "/tmp/k_machine_2100p_virt_c_civ.bit" }
+    - name: Download file if remote file is newer than local file
+      ansible.builtin.get_url:
+        url: "{{ item.item.item.url }}"
+        dest: "{{ item.item.item.dest }}"
+        use_proxy: no
+        mode: '0440'
+      environment:
+        http_proxy: ""
+        https_proxy: ""
+      loop: "{{ remote_file_heads.results }}"
+      when: >
+        (item.status == 200) and
+        (local_file_stats.results | selectattr('item.dest', 'equalto', item.item.item.dest) | map(attribute='stat.mtime') | list | first | default(0) | int < ansible_date_time.epoch | int) or
+        (not item.item.item.stat.exists)
+      vars:
+        ansible_date_time: "{{ lookup('pipe', 'date +%s --date=\"' + (item.last_modified if item.last_modified is defined else '1970-01-01') + '\"') }}"
