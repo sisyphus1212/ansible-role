@@ -1,8 +1,13 @@
-- name: Copy multiple files in Ansible with different permissions
+- name: Copy script files to target
   copy:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     mode: "{{ item.mode }}"
   with_items:
-    - { src: 'myfile.txt',dest: '/root', mode: '0777'}
-    - { src: 'script/test.sh',dest: '/root', mode: '0707'}
+    - { src: '/tmp/script.tar.gz',dest: '/root', mode: '0777'}
+
+- name: Unarchive tar.gz file
+  unarchive:
+    src: "/root/script.tar.gz"
+    dest: "/root/script"
+    remote_src: yes
