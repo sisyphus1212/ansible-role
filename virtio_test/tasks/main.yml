@@ -6,3 +6,4 @@
 
 - name: cpoy tool to target host
   import_tasks: copy_file.yml
+  delegate_to: soc_2100p
