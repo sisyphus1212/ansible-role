@@ -41,6 +41,7 @@
     dest: "{{ item.item.dest }}"
     use_proxy: no
     mode: '0440'
+    force: yes
   loop: "{{ local_file_stats.results }}"
   when: >
     (item.stat.exists and
