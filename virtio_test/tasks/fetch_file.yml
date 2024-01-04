@@ -9,7 +9,7 @@
 - name: Print Last-Modified header
   ansible.builtin.debug:
     #var: local_file_stats
-    msg: "local_file_stats is {{ local_file_stats }}"
+    msg: "local_file_stats is {{ local_file_stats.results }}"
 
 - name: Get remote file modification time
   ansible.builtin.uri:
