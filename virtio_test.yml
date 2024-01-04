@@ -1,6 +1,5 @@
 ---
-- hosts: all
-  gather_facts: false
+- gather_facts: false
   roles:
     - virtio_test
 #- role2              #支持加载多个role
