@@ -2,3 +2,4 @@
 # vars file for virtio_test
 #vivado_lab: /home/yusur/Vivado_Lab/2021.2/bin/vivado_lab
 vivado_lab: "ps -aux"
+bits_file: ""

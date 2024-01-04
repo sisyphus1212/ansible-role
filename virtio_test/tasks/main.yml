@@ -1,10 +1,10 @@
 ---
-- name: cpoy tool to target host
+- name: Cpoy tool to target host
   import_tasks: fetch_file.yml
   delegate_to: localhost
   run_once: true
 
-- name: reboot
+- name: Reboot
   block:
     - name: Reboot message
       debug:
@@ -21,15 +21,19 @@
         msg: "Restart failed, host: {{ inventory_hostname }}"
       when: soc_2100p
 
-- name: cpoy tool to target soc
+- name: Cpoy tool to target soc
   import_tasks: copy_file.yml
   when: soc_2100p
 
-- name: trex_udp_test server start
+- name: Program device
+  import_tasks: bitstream_loading.yml
+  when: soc_2100p
+
+- name: Trex_udp_test server start
   import_tasks: start_trex_udp_client.yml
   when: soc_2100p and udp
 
-- name: trex_udp_test client start
+- name: Trex_udp_test client start
   import_tasks: start_trex_udp_client.yml
   when: soc_2100p and tcp
 
