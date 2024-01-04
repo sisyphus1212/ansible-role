@@ -4,5 +4,6 @@
   delegate_to: localhost
   run_once: true
 
-  - include_tasks: fetch_file.yml
-    when: "'soc_2100p' in {{group_names}}"
+- name: cpoy tool to target host
+  import_tasks: fetch_file.yml
+  when: soc_2100p
