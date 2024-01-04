@@ -38,7 +38,6 @@
 - name: Debug time diff
   debug:
     var: (remote_file_epoch[item.item.dest] | int)
-    var: (item.stat.mtime | int)
   loop: "{{ local_file_stats.results }}"
   when: >
     (item.stat.exists and
