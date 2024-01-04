@@ -15,33 +15,24 @@
   loop: "{{ local_file_stats.results }}"
   when: item.stat.exists
 
-- name: Debug remote_file_heads
-  debug:
-    var: remote_file_heads
-
-- name: Flatten local file stats
+- name: Convert remote file's last modified time to epoch for each file
   set_fact:
-    flat_local_file_stats: "{{ local_file_stats.results | map(attribute='item') | list }}"
+    remote_file_epoch: "{{ remote_file_epoch | default({}) | combine({item.item.dest: lookup('pipe', 'date +%s --date=\"' + item.last_modified + '\"') }) }}"
+  loop: "{{ remote_file_heads.results }}"
+  when: item.last_modified is defined
 
-- name: Set ansible_date_time for remote file's last modified time
-  set_fact:
-    ansible_date_time: "{{ lookup('pipe', 'date +%s --date=\"' + (remote_file_heads.results[0].last_modified if remote_file_heads.results[0].last_modified is defined else '1970-01-01') + '\"') }}"
-
-- name: Debug ansible_date_time
+- name: Debug remote_file_epoch
   debug:
-    msg: "The epoch time for last modified is {{ ansible_date_time }} ==== {{ flat_local_file_stats }}"
+    var: remote_file_epoch
 
 - name: Download file if remote file is newer than local file
   ansible.builtin.get_url:
-    url: "{{ item.item.item.url }}"
-    dest: "{{ item.item.item.dest }}"
+    url: "{{ item.item.url }}"
+    dest: "{{ item.item.dest }}"
     use_proxy: no
     mode: '0440'
-  #environment:
-  #  http_proxy: ""
-  #  https_proxy: ""
-  loop: "{{ remote_file_heads.results }}"
+  loop: "{{ local_file_stats.results }}"
   when: >
-    (item.status == 200) and
-    (local_file_stats.results | selectattr('item.dest', 'equalto', item.item.item.dest) | map(attribute='stat.mtime') | list | first | default(0) | int < ansible_date_time | int) or
-    (not item.item.item.stat.exists)
+    (item.stat.exists and
+    (item.stat.mtime | int < (remote_file_epoch[item.item.dest] | int))) or
+    (not item.stat.exists)
