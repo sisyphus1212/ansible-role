@@ -15,6 +15,10 @@
   loop: "{{ local_file_stats.results }}"
   when: item.stat.exists
 
+- name: Debug remote_file_heads
+  debug:
+    var: remote_file_heads
+
 - name: Flatten local file stats
   set_fact:
     flat_local_file_stats: "{{ local_file_stats.results | map(attribute='item') | list }}"
