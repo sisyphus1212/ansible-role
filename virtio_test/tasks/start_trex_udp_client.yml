@@ -10,7 +10,17 @@
     }
     config_func_queue
   async: 120  # 运行最多120秒
-  poll: 0     # 不等待任务完成
+  poll: 0  # 不等待任务完成
   environment:
     VIRTIO_PCI: '0x0'  # 根据实际情况替换这些值
     VIRTIO_BAR: '0x5'
+  register: async_result
+
+- name: Wait for at least 10 seconds
+  async_status:
+    jid: "{{ async_result.ansible_job_id }}"
+  register: job_result
+  until: job_result.finished or (job_result.started and (job_result.elapsed >= 10))
+  retries: 10  # 总共尝试30次，结合下面的延迟，这意味着总等待时间为30x2=60秒
+  delay: 1    # 每次尝试之间等待2秒
+  when: async_result.ansible_job_id is defined
