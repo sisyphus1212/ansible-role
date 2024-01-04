@@ -1,9 +1,11 @@
-- name: Remove all contents in the directory
+- name: Remove all contents from multiple directories
   ansible.builtin.shell:
-    cmd: "[ -d /root/test ] && rm -rf {{ item.path }}/*"
+    cmd: "[ -d {{ item }} ] && rm -rf {{ item }}/*"
     warn: false
   loop:
-    - { path: "/root/test" }
+    - "/root/test1"
+    - "/root/test2"
+    - "/root/test3"
 
 - name: Ensure directories exist
   ansible.builtin.file:
