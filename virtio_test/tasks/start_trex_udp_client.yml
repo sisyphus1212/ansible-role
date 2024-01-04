@@ -1,4 +1,4 @@
-- name: Configure function queue
+- name: Configure function queue asynchronously
   shell: |
     function config_func_queue() {
         echo $VIRTIO_PCI $VIRTIO_BAR 0x5c35000 0x00010000
@@ -8,11 +8,9 @@
         echo $VIRTIO_PCI $VIRTIO_BAR 0x5c35010 0x00020002
         echo $VIRTIO_PCI $VIRTIO_BAR 0x5c35014 0x00020002
     }
-
-    # 执行函数
     config_func_queue
-  args:
-    executable: /bin/bash
+  async: 120  # 运行最多120秒
+  poll: 0     # 不等待任务完成
   environment:
-    VIRTIO_PCI: '0x0'  # 请根据实际情况替换这些值
+    VIRTIO_PCI: '0x0'  # 根据实际情况替换这些值
     VIRTIO_BAR: '0x5'
