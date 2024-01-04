@@ -4,23 +4,6 @@
   delegate_to: localhost
   run_once: true
 
-#- name: Reboot
-#  block:
-#    - name: Reboot message
-#      debug:
-#        msg: "Operating System is about to restart, host:{{ inventory_hostname }}, group:{{ group_names | join(', ') }}"
-#      when: soc_2100p
-#    - name: Rebooting the server
-#      ansible.builtin.reboot:
-#        msg: "Operating System is about to restart, host:{{ inventory_hostname }}, group:{{ group_names | join(', ') }}"
-#        reboot_timeout: 600
-#      when: soc_2100p
-#  rescue:
-#    - name: Handle reboot failure
-#      debug:
-#        msg: "Restart failed, host: {{ inventory_hostname }}"
-#      when: soc_2100p
-
 - name: Rboot System
   import_tasks: reboot_system.yml
   vars:

@@ -3,14 +3,14 @@
     - name: Reboot message
       debug:
         msg: "Operating System is about to restart, host:{{ inventory_hostname }}, group:{{ group_names | join(', ') }}"
-      when: host | bool
+      when: host
     - name: Rebooting the server
       ansible.builtin.reboot:
         msg: "Operating System is about to restart, host:{{ inventory_hostname }}, group:{{ group_names | join(', ') }}"
         reboot_timeout: 600
-      when: host | bool
+      when: host
   rescue:
     - name: Handle reboot failure
       debug:
         msg: "Restart failed, host: {{ inventory_hostname }}"
-      when: host | bool
+      when: host
