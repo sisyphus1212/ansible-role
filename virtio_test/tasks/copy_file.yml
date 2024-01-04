@@ -1,6 +1,7 @@
 - name: Remove all contents in the directory
-  ansible.builtin.command:
+  ansible.builtin.shell:
     cmd: "[ -d /root/test ] && rm -rf {{ item.path }}/*"
+    warn: false
   loop:
     - { path: "/root/test" }
 
