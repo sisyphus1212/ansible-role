@@ -6,10 +6,10 @@
     - { url: "http://pan.yusur.tech/?explorer/share/fileDownload&shareID=-AR5INIQ&path=%7BshareItemLink%3A-AR5INIQ%7D%2F&s=9SzPC", dest: "/tmp/script.tar.gz" }
     - { url: "http://pan.yusur.tech/?explorer/share/fileDownload&shareID=-APoFv5w&path=%7BshareItemLink%3A-APoFv5w%7D%2F&s=y7o1X", dest: "/tmp/k_machine_2100p_virt_c_civ.bit" }
 
-- name: Debug local_file_stats
-  debug:
-    var: item
-  loop: "{{ local_file_stats.results }}"
+#- name: Debug local_file_stats
+#  debug:
+#    var: item
+#  loop: "{{ local_file_stats.results }}"
 
 - name: Get remote file modification time
   ansible.builtin.uri:
