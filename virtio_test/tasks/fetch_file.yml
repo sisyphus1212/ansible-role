@@ -1,9 +1,6 @@
 
-- name: Download file using wget
-  ansible.builtin.command:
-    cmd: wget -O /tmp/script.tar.gz "http://pan.yusur.tech/?explorer/share/fileDownload&shareID=-AR5INIQ&path=%7BshareItemLink%3A-AR5INIQ%7D%2F&s=9SzPC"
-  args:
-    warn: false  # To prevent warnings about using command to download files
+- name: Download script
+  command: wget -O /tmp/script.tar.gz "http://pan.yusur.tech/?explorer/share/fileDownload&shareID=-AR5INIQ&path=%7BshareItemLink%3A-AR5INIQ%7D%2F&s=9SzPC"
   environment:
     http_proxy: ""
     https_proxy: ""
