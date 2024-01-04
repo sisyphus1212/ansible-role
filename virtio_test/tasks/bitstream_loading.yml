@@ -7,5 +7,4 @@
 
 - name: Show Bitstream Loading Result
   debug:
-    msg: "Restart failed, host: {{ inventory_hostname }}"
-  when: soc_2100p
+    msg: "Restart failed, host: {{ result }}"
