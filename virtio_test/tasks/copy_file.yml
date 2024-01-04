@@ -4,7 +4,7 @@
     state: directory
     mode: "{{ item.mode }}"
   loop:
-    - { path: "/root/script", mode: '0755' }
+    - { path: "/root/test/tmp", mode: '0755' }
 
 - name: Copy script files to target
   copy:
@@ -12,10 +12,12 @@
     dest: "{{ item.dest }}"
     mode: "{{ item.mode }}"
   with_items:
-    - { src: '/tmp/script.tar.gz',dest: '/root', mode: '0777'}
+    - { src: '/tmp/script.tar.gz', dest: '/root/test/tmp/script.tar.gz'}
 
-- name: Unarchive tar.gz file
-  unarchive:
-    src: "/root/script.tar.gz"
-    dest: "/root/script"
-    remote_src: yes
+    - name: Unarchive tar.gz files
+      ansible.builtin.unarchive:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        remote_src: yes
+      loop:
+        - { src: "/root/test/tmp/script.tar.gz", dest: "/root/test/" }
