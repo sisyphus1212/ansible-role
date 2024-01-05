@@ -4,12 +4,12 @@
   delegate_to: localhost
   run_once: true
 
-- name: Debug group_vars
+- name: Debug group_vars soc_2100p
   debug:
     var: soc_2100p
   when: soc_2100p
 
-- name: Debug group_vars
+- name: Debug group_vars host_2100p
   debug:
     var: host_2100p
   when: soc_2100p
