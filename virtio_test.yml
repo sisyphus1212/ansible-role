@@ -2,11 +2,12 @@
 - hosts: all
   gather_facts: false
   tasks:
-    - template:
-        src: group_vars.j2
-        dest: "{{ playbook_dir }}/vars/group_vars.yml"
-    delegate_to: localhost
-    run_once: true
+    local_action:
+      - template:
+          src: group_vars.j2
+          dest: "{{ playbook_dir }}/vars/group_vars.yml"
+    #delegate_to: localhost
+    #run_once: true
 
   roles:
     - role: virtio_test
