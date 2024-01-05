@@ -1,8 +1,8 @@
 ---
-- name: Cpoy tool to target host
-  import_tasks: fetch_file.yml
-  delegate_to: localhost
-  run_once: true
+#- name: Cpoy tool to target host
+#  import_tasks: fetch_file.yml
+#  delegate_to: localhost
+#  run_once: true
 
 #- name: Debug group_vars soc_2100p
 #  debug:
@@ -18,16 +18,75 @@
 #  import_tasks: reboot_system.yml
 #  vars:
 #    host: "{{ soc_2100p or host_2100p }}"
-#
-#- name: Cpoy tool to target soc
-#  import_tasks: copy_file.yml
-#  when: soc_2100p
-
+- name: Program device
+  import_tasks: bitstream_loading.yml
+  delegate_to: localhost
+  when: soc_2100p
 
 - name: Program device
   import_tasks: bitstream_loading.yml
   delegate_to: localhost
   run_once: true
+
+#- name: Rboot System
+#  import_tasks: reboot_system.yml
+#  vars:
+#    host: "{{ host_2100p }}"
+- name: Execute virtio_mac_config.sh script
+  shell: "sh virtio_mac_config.sh"
+  chdir: "/root/lan_mac_config"
+  register: virtio_result
+  failed_when: virtio_result.rc != 0
+  changed_when: false
+
+- name: Execute 01_ltm_doe.sh script
+  shell: "sh 01_ltm_doe.sh"
+  chdir: "/root/lan_mac_config/script"
+  register: ltm_result
+  failed_when: ltm_result.rc != 0
+  changed_when: false
+
+- name: Execute multiple scripts for 2100_np2.0
+  shell: "./init_disable_np.sh && ./init_dpdk_debug.sh && ./nvme_mac.sh && ./init_enable_np.sh"
+  chdir: "/root/lan_mac_config/script/03_2100_np2.0"
+  register: np_result
+  failed_when: np_result.rc != 0
+  changed_when: false
+
+
+#- name:
+- name: Host Probe Virtio-net Driver and Check Result
+  shell: "modprobe virtio_net"
+  register: result
+  failed_when:  result.rc != 0
+  changed_when: false
+  - debug:
+      msg: "{{ 'Command executed result:' + result}}"
+
+- name: Execute virtio_lan_config.sh script
+  shell: "sh virtio_lan_config.sh 128"
+  chdir: "/root/lan_mac_config/"
+  register: virtio_lan_config
+  failed_when: virtio_lan_config.rc != 0
+  changed_when: false
+
+- name: Execute multiple scripts for 2100_np2.0
+  shell: "./init_disable_np.sh && ./init_dpdk_debug.sh && ./nvme_mac.sh && ./init_enable_np.sh"
+  chdir: "/root/lan_mac_config/script/03_2100_np2.0"
+  register: np_result
+  failed_when: np_result.rc != 0
+  changed_when: false
+
+
+#- name:
+- name: Host Probe Virtio-net Driver and Check Result
+  shell: "modprobe virtio_net"
+  register: result
+  failed_when:  result.rc != 0
+  changed_when: false
+  - debug:
+      msg: "{{ 'Command executed result:' + result}}"
+
 #
 #- name: Trex_udp_test server start
 #  import_tasks: start_trex_udp_client.yml
