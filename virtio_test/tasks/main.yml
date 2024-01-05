@@ -12,6 +12,12 @@
 - name: Debug group_vars
   debug:
     var: soc_2100p
+  when: soc_2100p
+
+- name: Debug group_vars
+  debug:
+    var: host_2100p
+  when: soc_2100p
 #- name: Rboot System
 #  import_tasks: reboot_system.yml
 #  vars:
