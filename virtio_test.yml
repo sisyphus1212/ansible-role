@@ -6,7 +6,6 @@
       import_role:
         name: virtio_test
         tasks_from: generate_group_vars
-      delegate_to: localhost
       run_once: true
 
 - hosts: all
