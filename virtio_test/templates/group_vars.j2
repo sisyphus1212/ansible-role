@@ -1,7 +1,7 @@
 all:
   vars:
 {% for group in groups %}
-    {{ group }}: {{ group in groups | to_yaml }}
+    {{ group }}: {{ not group in groups | to_yaml }}
 {% endfor %}
 
 {% for group in groups %}
