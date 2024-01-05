@@ -1,4 +1,4 @@
 - name: Generate defaults/main.yml from template
   template:
     src: "group_vars.j2"
-    dest: "{{ role_path }}/defaults/main.yml"
+    dest: "{{ role_path }}/vars/main.yml"
