@@ -1,9 +1,12 @@
 ---
-#- name: Cpoy tool to target host
-#  import_tasks: fetch_file.yml
-#  delegate_to: localhost
-#  run_once: true
-#
+- name: Cpoy tool to target host
+  import_tasks: fetch_file.yml
+  delegate_to: localhost
+  run_once: true
+
+- name: Debug group_vars
+  debug:
+    var: soc_2100p
 #- name: Rboot System
 #  import_tasks: reboot_system.yml
 #  vars:
