@@ -1,4 +1,9 @@
-- name: Generate defaults/main.yml from template
-  template:
-    src: "group_vars.j2"
-    dest: "{{ playbook_dir }}/host/{{ role_name }}.yml"
+- hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Generate defaults/main.yml from template
+      template:
+        src: "group_vars.j2"
+        dest: "{{ playbook_dir }}/host/{{ case_name }}.yml"
+      delegate_to: localhost
+      run_once: true
