@@ -2,8 +2,9 @@
 - hosts: all
   gather_facts: false
   tasks:
-    local_action:
-      - template:
+      - name: Generate vars/main.yml from template on local machine
+        local_action:
+          module: template
           src: group_vars.j2
           dest: "{{ playbook_dir }}/vars/group_vars.yml"
     #delegate_to: localhost
