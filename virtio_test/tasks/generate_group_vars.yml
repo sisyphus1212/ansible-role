@@ -2,5 +2,3 @@
   template:
     src: group_vars.j2
     dest: "{{ role_path }}/defaults/main.yml"
-  delegate_to: localhost
-  run_once: true
