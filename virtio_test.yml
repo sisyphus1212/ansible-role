@@ -1,13 +1,11 @@
 ---
-- name: Import tasks from a specific file within a role
-  import_role:
-    name: virtio_test
-    tasks_from: generate_group_vars
-  delegate_to: localhost
-  run_once: true
-
 - hosts: all
   gather_facts: false
+  tasks:
+    - name: Import tasks from a specific file within a role
+    import_role:
+      name: virtio_test
+      tasks_from: generate_group_vars
   roles:
     - role: virtio_test
       vars:
