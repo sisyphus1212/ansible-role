@@ -6,6 +6,9 @@
       import_role:
         name: virtio_test
         tasks_from: generate_group_vars
+
+- hosts: all
+  gather_facts: false
   roles:
     - role: virtio_test
       vars:
