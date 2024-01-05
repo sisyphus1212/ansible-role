@@ -1,8 +1,2 @@
 ---
 # defaults file for virtio_test
-- name: Generate vars/group_vars.yml from template
-  template:
-    src: "group_vars.j2"
-    dest: "{{ role_path }}/vars/group_vars.yml"
-  delegate_to: localhost
-  run_once: true
