@@ -5,8 +5,9 @@
     - template:
         src: group_vars.j2
         dest: "{{ playbook_dir }}/vars/group_vars.yml"
-  delegate_to: localhost
-  run_once: true
+    delegate_to: localhost
+    run_once: true
+
   roles:
     - role: virtio_test
       vars:
