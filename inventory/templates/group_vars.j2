@@ -5,7 +5,7 @@ all:
 {% endfor %}
 
 {% for group in groups %}
-{% if group != 'all' and groups[group]  %}
+{% if group != 'all' %}
 {{ group }}:
   vars:
     {{ group }}: True
