@@ -1,9 +1,4 @@
 ---
-- name: Generate defaults/main.yml from template
-  import_tasks: generate_group_vars.yml
-  delegate_to: localhost
-  run_once: true
-
 - name: Cpoy tool to target host
   import_tasks: fetch_file.yml
   delegate_to: localhost
