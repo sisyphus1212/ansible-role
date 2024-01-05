@@ -1,10 +1,10 @@
-- name: Bitstream Loading
+- name: Program Device
   register: result
   shell:
     #cmd: {{ vivado_lab }} -mode tcl -source {{ bits_file }}
     cmd: "{{ vivado_lab }}"
     warn: false
 
-- name: Show Bitstream Loading Result
+- name: Show Program Device Result
   debug:
-    msg: "Restart failed, host: {{ result }}"
+    msg: "Program Device Result: {{ result }}"
