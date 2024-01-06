@@ -70,8 +70,6 @@
   register: result
   failed_when:  result.rc != 0
   changed_when: false
-  - debug:
-      msg: "{{ 'Command executed result:' + result}}"
   when: host_2100p
 
 - name: Execute virtio_lan_config.sh script
