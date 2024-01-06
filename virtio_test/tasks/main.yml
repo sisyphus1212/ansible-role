@@ -17,16 +17,16 @@
 - name: Program device c
   import_tasks: bitstream_loading.yml
   vars:
-    exec_bin: {{ vivado_bin }}
-    program_tcl:  {{ virtio_program_c_tcl }}
+    exec_bin: "{{ vivado_bin }}"
+    program_tcl:  "{{ virtio_program_c_tcl }}"
   run_once: true
   when: host_2100p
 
 - name: Program device b
   import_tasks: bitstream_loading.yml
   vars:
-    exec_bin: {{ vivado_lab_bin }}
-    program_tcl:  {{ virtio_program_b_tcl }}
+    exec_bin: "{{ vivado_lab_bin }}"
+    program_tcl:  "{{ virtio_program_b_tcl }}"
   delegate_to: localhost
   run_once: true
 
