@@ -6,9 +6,9 @@
 - name: Program Device
   register: result
   task:
-  - shell:
-      cmd: "{{ exec_bin }} -mode tcl -source {{ program_tcl }}"
-      warn: false
-      chdir: "{{ base_dir }}"
-  - debug:
-      msg: "Program Device Result: {{ result }}"
+    - shell:
+        cmd: "{{ exec_bin }} -mode tcl -source {{ program_tcl }}"
+        warn: false
+        chdir: "{{ base_dir }}"
+    - debug:
+        msg: "Program Device Result: {{ result }}"
