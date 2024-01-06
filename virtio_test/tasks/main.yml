@@ -36,24 +36,27 @@
     host: "{{ soc_2100p or host_2100p }}"
 
 - name: Execute virtio_mac_config.sh script
-  shell: "sh virtio_mac_config.sh"
-  chdir: "/root/kongqd/lan_mac_config_wuhan"
+  shell:
+    cmd: "sh virtio_mac_config.sh"
+    chdir: "/root/kongqd/lan_mac_config_wuhan"
   register: virtio_result
   failed_when: virtio_result.rc != 0
   changed_when: false
   when: soc_2100p
 
 - name: Execute 01_ltm_doe.sh script
-  shell: "sh 01_ltm_doe.sh"
-  chdir: "/root/kongqd/lan_mac_config_wuhan/script"
+  shell:
+    cmd:"sh 01_ltm_doe.sh"
+    chdir: "/root/kongqd/lan_mac_config_wuhan/script"
   register: ltm_result
   failed_when: ltm_result.rc != 0
   changed_when: false
   when: soc_2100p
 
 - name: Execute multiple scripts for 2100_np2.0
-  shell: "./init_disable_np.sh && ./init_dpdk_debug.sh && ./nvme_mac.sh && ./init_enable_np.sh"
-  chdir: "/root/kongqd/lan_mac_config_wuhan/script/03_2100_np2.0"
+  shell:
+    cmd: "./init_disable_np.sh && ./init_dpdk_debug.sh && ./nvme_mac.sh && ./init_enable_np.sh"
+    chdir: "/root/kongqd/lan_mac_config_wuhan/script/03_2100_np2.0"
   register: np_result
   failed_when: np_result.rc != 0
   changed_when: false
@@ -66,7 +69,8 @@
 
 #- name:
 - name: Host Probe Virtio-net Driver and Check Result
-  shell: "modprobe virtio_net"
+  shell:
+    cmd: "modprobe virtio_net"
   register: result
   failed_when:  result.rc != 0
   changed_when: false
@@ -81,15 +85,17 @@
   when: soc_2100p
 
 - name: Insmod ysk2.ko
-  shell: "insmod ysk2.ko k2_soc"
-  chdir: "/root/lan_mac_config/icbc/ysk2_soc_nvme_net/src"
+  shell:
+    cmd: "insmod ysk2.ko k2_soc"
+    chdir: "/root/lan_mac_config/icbc/ysk2_soc_nvme_net/src"
   register: insmod
   failed_when: insmod.rc != 0
   changed_when: false
   when: soc_2100p
 
 - name: setup_ovs
-  shell: "sh ~/zgh/setup_ovs.sh"
+  shell:
+    cmd: "sh ~/zgh/setup_ovs.sh"
   register: insmod
   failed_when: insmod.rc != 0
   changed_when: false
