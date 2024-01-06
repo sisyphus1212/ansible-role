@@ -46,7 +46,7 @@
 
 - name: Execute 01_ltm_doe.sh script
   shell:
-    cmd:"sh 01_ltm_doe.sh"
+    cmd: "sh 01_ltm_doe.sh"
     chdir: "/root/kongqd/lan_mac_config_wuhan/script"
   register: ltm_result
   failed_when: ltm_result.rc != 0
