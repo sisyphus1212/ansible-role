@@ -2,7 +2,7 @@
 # vars file for virtio_test
 #vivado_lab: /home/yusur/Vivado_Lab/2021.2/bin/vivado_lab
 vivado_bin: "/tools/Xilinx/Vivado/2020.2/bin/vivado"
-virtio_program_c_tcl: ""/home/clover/program_device.tcl
+virtio_program_c_tcl: ""tcl/virtio_program_split_c.tcl
 
-vivado_lb_bin: "/home/yusur/Vivado_Lab/2021.2/bin/vivado_lab"
-virtio_program_b_tcl: ""/home/clover/program_device.tcl
+vivado_lb_bin: "/home/np/kongqd/Vivado_Lab/2023.2/bin/vivado_lab"
+virtio_program_b_tcl: ""tcl/virtio_program_split_b.tcl
