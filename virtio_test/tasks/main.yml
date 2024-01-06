@@ -77,8 +77,9 @@
   when: host_2100p
 
 - name: Execute virtio_lan_config.sh script
-  shell: "sh virtio_lan_config.sh 128"
-  chdir: "/root/kongqd/lan_mac_config_wuhan/"
+  shell:
+    cmd: "sh virtio_lan_config.sh 128"
+    chdir: "/root/kongqd/lan_mac_config_wuhan/"
   register: virtio_lan_config
   failed_when: virtio_lan_config.rc != 0
   changed_when: false
