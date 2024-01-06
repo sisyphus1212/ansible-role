@@ -5,6 +5,7 @@
 
 - name: Program Device
   register: result
+  task:
   - shell:
       cmd: "{{ exec_bin }} -mode tcl -source {{ program_tcl }}"
       warn: false
