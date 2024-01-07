@@ -36,32 +36,40 @@
   vars:
     host: "{{ soc_2100p or host_2100p }}"
 
-- name: Execute virtio_mac_config.sh script
-  shell:
-    cmd: "sh virtio_mac_config.sh"
-    chdir: "/root/kongqd/lan_mac_config_wuhan"
-  register: virtio_result
-  failed_when: virtio_result.rc != 0
-  changed_when: false
-  when: soc_2100p
+- name: Execute scripts with error handling
+  block:
+    - name: Execute virtio_mac_config.sh script
+      shell:
+        cmd: "sh virtio_mac_config.sh"
+        chdir: "/root/kongqd/lan_mac_config_wuhan"
+      register: virtio_result
+      failed_when: virtio_result.rc != 0
+      changed_when: false
+      when: soc_2100p
 
-- name: Execute 01_ltm_doe.sh script
-  shell:
-    cmd: "sh 01_ltm_doe.sh"
-    chdir: "/root/kongqd/lan_mac_config_wuhan/script"
-  register: ltm_result
-  failed_when: ltm_result.rc != 0
-  changed_when: false
-  when: soc_2100p
+    - name: Execute 01_ltm_doe.sh script
+      shell:
+        cmd: "sh 01_ltm_doe.sh"
+        chdir: "/root/kongqd/lan_mac_config_wuhan/script"
+      register: ltm_result
+      failed_when: ltm_result.rc != 0
+      changed_when: false
+      when: soc_2100p
 
-- name: Execute multiple scripts for 2100_np2.0
-  shell:
-    cmd: "./init_disable_np.sh && ./init_dpdk_debug.sh && ./nvme_mac.sh && ./init_enable_np.sh"
-    chdir: "/root/kongqd/lan_mac_config_wuhan/script/03_2100_np2.0"
-  register: np_result
-  failed_when: np_result.rc != 0
-  changed_when: false
-  when: soc_2100p
+    - name: Execute multiple scripts for 2100_np2.0
+      shell:
+        cmd: "./init_disable_np.sh && ./init_dpdk_debug.sh && ./nvme_mac.sh && ./init_enable_np.sh"
+        chdir: "/root/kongqd/lan_mac_config_wuhan/script/03_2100_np2.0"
+      register: np_result
+      failed_when: np_result.rc != 0
+      changed_when: false
+      when: soc_2100p
+
+  rescue:
+    - name: Print error info
+      debug:
+        msg: "The script failed. Error info: {{ ansible_failed_result }}"
+
 
 - name: Rboot System
   import_tasks: reboot_system.yml
