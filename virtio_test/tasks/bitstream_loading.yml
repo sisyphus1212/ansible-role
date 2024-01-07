@@ -4,15 +4,15 @@
     exec_bin: "{{ exec_bin | basename }}"
     tcl_path: "/tmp/{{ program_tcl }}"
 
-- name: Copy program_tcl to remote
+- debug:
+    msg: "Program Device Result: {{ base_dir }} | {{ exec_bin }}"
+
+- name: Check path
   shell:
     cmd: "[ -d {{ item }} ] &&  mkdir -p {{ item }}"
     warn: false
   loop:
     - "{{ tcl_path | dirname }}"
-
-- debug:
-    msg: "Program Device Result: {{ base_dir }} | {{ exec_bin }}"
 
 - name: Copy script files to target
   copy:
@@ -25,7 +25,7 @@
   register: result
   shell:
     chdir: "{{ base_dir }}"
-    cmd: "{{ exec_bin }} -mode tcl -source {{ tcl_path }}"
+    cmd: "./{{ exec_bin }} -mode tcl -source {{ tcl_path }}"
     warn: false
 
 - debug:
