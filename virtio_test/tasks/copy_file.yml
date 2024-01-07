@@ -20,4 +20,4 @@
     mode: "{{ item.mode }}"
     remote_src: yes
   loop:
-    - { src: "/root/test/tmp/script.tar.gz",dest: "/root/test/", mode: '0777'}
+    - { src: "{{ src_file }}", dest: "{{ dst_file }}", mode: '0777'}
