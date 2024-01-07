@@ -2,7 +2,7 @@
   set_fact:
     base_dir: "{{ exec_bin | dirname }}"
     exec_bin: "{{ exec_bin | basename }}"
-    tcl_path: "/tmp/{{ program_tcl }} | dirname"
+    tcl_path: "{{ /tmp/{{ program_tcl }} | dirname }}"
 
 - name: Copy program_tcl to remote
   shell:
