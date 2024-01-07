@@ -6,6 +6,13 @@
 - debug:
     msg: "Program Device Result: {{ base_dir }} | {{ exec_bin }}"
 
+- name: Copy script files to target
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: '{{ program_tcl }}', dest: '/tmp/{{ program_tcl }}'}
+
 - name: Program Device
   register: result
   shell:
