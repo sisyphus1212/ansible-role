@@ -1,4 +1,4 @@
-- name: Get Vivado Base Directory
+- name: Get Vivado Base Directory "{{program_tcl}}"
   set_fact:
     base_dir: "{{ exec_bin | dirname }}"
     exec_bin: "{{ exec_bin | basename }}"
@@ -7,21 +7,21 @@
 - debug:
     msg: "Program Device Result: {{ base_dir }} | {{ exec_bin }}"
 
-- name: Check path
+- name: Check path "{{program_tcl}}"
   shell:
     cmd: "[ -d {{ item }} ] &&  mkdir -p {{ item }} || exit 0"
     warn: false
   loop:
     - "{{ tcl_path | dirname }}"
 
-- name: Copy script files to target
+- name: Copy script files to target "{{program_tcl}}"
   copy:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
   with_items:
     - { src: '{{ program_tcl }}', dest: '{{ tcl_path }}'}
 
-- name: Program Device
+- name: Program Device "{{program_tcl}}"
   register: result
   shell:
     chdir: "{{ base_dir }}"
