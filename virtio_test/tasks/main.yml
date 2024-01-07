@@ -15,12 +15,13 @@
 #  when: soc_2100p
 
 - name: Program device c
-  import_tasks: bitstream_loading.yml
-  vars:
-    exec_bin: "{{ vivado_bin }}"
-    program_tcl:  "{{ virtio_program_c_tcl }}"
-  run_once: true
-  when: host_2100p
+  hosts: host_2100p
+  gather_facts: false
+  tasks:
+    - include: bitstream_loading.yml
+      vars:
+        exec_bin: "{{ vivado_bin }}"
+        program_tcl:  "{{ virtio_program_c_tcl }}"
 
 - name: Program device b
   import_tasks: bitstream_loading.yml

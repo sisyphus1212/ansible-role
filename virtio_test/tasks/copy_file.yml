@@ -1,17 +1,16 @@
 - name: Remove all contents from multiple directories
   shell:
-    cmd: "[ -d {{ item }} ] && rm -rf {{ item }}/* || mkdir -p {{ item }}"
+    cmd: "[ -d {{ item }} ] &&  mkdir -p {{ item }} || exit 0"
     warn: false
   loop:
-    - "/root/test"
-    - "/root/test/tmp"
+    - '{{ dst_file | dirname }}'
 
 - name: Copy script files to target
   copy:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
   with_items:
-    - { src: '/tmp/script.tar.gz', dest: '/root/test/tmp/script.tar.gz'}
+    - { src: "{{ src_file }}", dest: '{{ dst_file }}'}
 
 - name: Unarchive tar.gz files
   ansible.builtin.unarchive:
@@ -21,3 +20,4 @@
     remote_src: yes
   loop:
     - { src: "{{ src_file }}", dest: "{{ dst_file }}", mode: '0777'}
+  when: item.src is match(".*(\\.tar\\.gz|\\.tgz)$")

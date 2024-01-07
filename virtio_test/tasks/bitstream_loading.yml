@@ -8,18 +8,10 @@
     msg: "Program Device Result: {{ base_dir }} | {{ exec_bin }}"
 
 - name: Check path "{{program_tcl}}"
-  shell:
-    cmd: "[ -d {{ item }} ] &&  mkdir -p {{ item }} || exit 0"
-    warn: false
-  loop:
-    - "{{ tcl_path | dirname }}"
-
-- name: Copy script files to target "{{program_tcl}}"
-  copy:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-  with_items:
-    - { src: '{{ program_tcl }}', dest: '{{ tcl_path }}'}
+  include: copy_file.yml
+  vars:
+    src_file: "{{ program_tcl }}"
+    dst_file: "{{ tcl_path }}"
 
 - name: Program Device "{{program_tcl}}"
   register: result
