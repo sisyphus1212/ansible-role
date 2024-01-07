@@ -29,6 +29,7 @@
     program_tcl:  "{{ virtio_program_b_tcl }}"
   delegate_to: localhost
   run_once: true
+  when: soc_2100p
 
 - name: Rboot System
   import_tasks: reboot_system.yml
