@@ -9,7 +9,7 @@
 
 - name: Check path
   shell:
-    cmd: "[ -d {{ item }} ] &&  mkdir -p {{ item }}"
+    cmd: "[ -d {{ item }} ] &&  mkdir -p {{ item }} || exit 0"
     warn: false
   loop:
     - "{{ tcl_path | dirname }}"
