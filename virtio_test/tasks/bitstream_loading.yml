@@ -4,7 +4,7 @@
     exec_bin: "{{ exec_bin | basename }}"
 
 - debug:
-    msg: "Program Device Result: {{ result }}"
+    msg: "Program Device Result: {{ base_dir }} | {{ exec_bin }}"
 
 - name: Program Device
   register: result
