@@ -58,9 +58,9 @@
       shell:
         cmd: "./init_disable_np.sh && ./init_dpdk_debug.sh && ./nvme_mac.sh && ./init_enable_np.sh"
         chdir: "/root/kongqd/lan_mac_config_wuhan/script/03_2100p_np2.0"
-      register: 2100_np2
+      register: np2100
     - debug:
-          msg: '{{ 2100_np2 }}'
+          msg: '{{ np2100 }}'
 
 - name: reboot host
   hosts: host_2100p
