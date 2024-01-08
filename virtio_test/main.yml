@@ -77,7 +77,7 @@
       register: modprobe
     - debug:
         msg: '{{ modprobe }}'
-    - name: Host Probe Virtio-net Driver and Check Result
+    - name: start trex server
       shell:
         cmd: "sh /root/lcj/tmux_host_udp.sh"
 
