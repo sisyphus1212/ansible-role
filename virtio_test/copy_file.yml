@@ -1,6 +1,6 @@
 - name: Remove all contents from multiple directories
   shell:
-    cmd: "[ -d {{ item }} ] &&  mkdir -p {{ item }} || exit 0"
+    cmd: " mkdir -p {{ item }} "
     warn: false
   loop:
     - '{{ dst_file | dirname }}'
