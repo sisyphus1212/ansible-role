@@ -1,3 +1,6 @@
+- name: Conditionally decide to load in variables
+  include_vars: "main.yaml"
+
 - name: Copy tcl c
   hosts: host_2100p
   gather_facts: false
