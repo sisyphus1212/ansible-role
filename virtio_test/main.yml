@@ -1,4 +1,4 @@
-- name: Copy tcl c
+- name: Program device c
   hosts: host_2100p
   gather_facts: false
   tasks:
@@ -21,8 +21,8 @@
   gather_facts: false
   tasks:
     - debug:
-        msg: reboot host
-    - name: reboot host
+        msg: reboot soc
+    - name: reboot soc
       reboot:
 
 - name: reboot host and soc
@@ -59,8 +59,8 @@
       register: np_result
       failed_when: np_result.rc != 0
 
-- name: reboot host and soc
-  hosts: soc_2100p
+- name: reboot host
+  hosts: host_2100p
   gather_facts: false
   tasks:
     - debug:
@@ -68,10 +68,6 @@
     - name: reboot host
       reboot:
 
-- name: setup soc_2100p
-  hosts: soc_2100p
-  gather_facts: false
-  tasks:
     - name: Host Probe Virtio-net Driver and Check Result
       shell:
         cmd: "modprobe virtio_net"
