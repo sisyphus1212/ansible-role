@@ -16,11 +16,23 @@
         exec_bin: "{{ vivado_lb_bin }}"
         program_tcl:  "{{ virtio_program_b_tcl }}"
 
-- name: Rboot System
+- name: reboot host and soc
+  hosts: soc_2100p
+  gather_facts: false
   tasks:
-    - include: reboot_system.yml
-      vars:
-        host: "{{ soc_2100p or host_2100p }}"
+    - debug:
+        msg: reboot host
+    - name: reboot host
+      reboot:
+
+- name: reboot host and soc
+  hosts: host_2100p
+  gather_facts: false
+  tasks:
+    - debug:
+        msg: reboot host
+    - name: reboot host
+      reboot:
 
 - name: setup soc_2100p
   hosts: soc_2100p
