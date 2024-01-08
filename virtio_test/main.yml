@@ -34,7 +34,7 @@
     - name: reboot host
       reboot:
 
-- name: setup soc_2100p
+- name: setup soc_2100p step 1
   hosts: soc_2100p
   gather_facts: false
   tasks:
@@ -50,9 +50,9 @@
       shell:
         cmd: "sh 01_ltm_doe.sh"
         chdir: "/root/kongqd/lan_mac_config_wuhan/script"
-      register: 01_ltm_doe
+      register: ltm_doe
     - debug:
-        msg: '{{ 01_ltm_doe }}'
+        msg: '{{ ltm_doe }}'
 
     - name: Execute multiple scripts for 2100_np2.0
       shell:
@@ -78,7 +78,7 @@
     - debug:
         msg: '{{ modprobe }}'
 
-- name: setup soc_2100p 2
+- name: setup soc_2100p step 2
   hosts: soc_2100p
   gather_facts: false
   tasks:
