@@ -33,9 +33,6 @@
         msg: reboot host
     - name: reboot host
       reboot:
-        register: result
-      debug:
-          msg: '{{ result }}'
 
 - name: setup soc_2100p
   hosts: soc_2100p
