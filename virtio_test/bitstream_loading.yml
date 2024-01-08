@@ -1,8 +1,9 @@
 - name: Get Vivado Base Directory "{{program_tcl}}"
-  set_fact:
-    base_dir: "{{ exec_bin | dirname }}"
-    exec_bin: "{{ exec_bin | basename }}"
-    tcl_path: "/tmp/{{ program_tcl }}"
+  task:
+    set_fact:
+      base_dir: "{{ exec_bin | dirname }}"
+      exec_bin: "{{ exec_bin | basename }}"
+      tcl_path: "/tmp/{{ program_tcl }}"
   task:
     - debug:
         msg: "Program Device Result: {{ base_dir }} | {{ exec_bin }}"
