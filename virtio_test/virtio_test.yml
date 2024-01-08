@@ -1,9 +1,0 @@
----
-- hosts: all
-  gather_facts: false
-  roles:
-    - role: virtio_test
-      vars:
-        udp: True
-        tcp: False
-#- role2              #支持加载多个role

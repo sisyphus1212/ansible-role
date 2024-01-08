@@ -1,3 +1,0 @@
-- name: Handle tcp test
-  debug:
-    msg: "tcp test ok"
