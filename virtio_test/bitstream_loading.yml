@@ -18,7 +18,6 @@
   shell:
     chdir: "{{ var_base_dir }}"
     cmd: "./{{ var_exec_bin }} -mode tcl -source {{ tcl_path }}"
-    warn: false
 
 - debug:
     msg: "Program Device Result: {{ result }}"
