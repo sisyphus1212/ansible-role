@@ -59,11 +59,14 @@
       register: np_result
       failed_when: np_result.rc != 0
 
-- name: Rboot System
+- name: reboot host and soc
+  hosts: soc_2100p
+  gather_facts: false
   tasks:
-    - include: reboot_system.yml
-      vars:
-        host: "{{ host_2100p }}"
+    - debug:
+        msg: reboot host
+    - name: reboot host
+      reboot:
 
 - name: setup soc_2100p
   hosts: soc_2100p
