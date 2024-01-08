@@ -33,6 +33,9 @@
         msg: reboot host
     - name: reboot host
       reboot:
+        register: result
+      debug:
+          msg: '{{ result }}'
 
 - name: setup soc_2100p
   hosts: soc_2100p
@@ -42,16 +45,25 @@
       shell:
         cmd: "sh virtio_mac_config.sh"
         chdir: "/root/kongqd/lan_mac_config_wuhan"
+        register: result
+      debug:
+          msg: '{{ result }}'
 
     - name: Execute 01_ltm_doe.sh script
       shell:
         cmd: "sh 01_ltm_doe.sh"
         chdir: "/root/kongqd/lan_mac_config_wuhan/script"
+        register: result
+      debug:
+          msg: '{{ result }}'
 
     - name: Execute multiple scripts for 2100_np2.0
       shell:
         cmd: "./init_disable_np.sh && ./init_dpdk_debug.sh && ./nvme_mac.sh && ./init_enable_np.sh"
         chdir: "/root/kongqd/lan_mac_config_wuhan/script/03_2100p_np2.0"
+        register: result
+      debug:
+          msg: '{{ result }}'
 
 - name: reboot host
   hosts: host_2100p
@@ -65,7 +77,9 @@
     - name: Host Probe Virtio-net Driver and Check Result
       shell:
         cmd: "modprobe virtio_net"
-      register: result
+        register: result
+      debug:
+          msg: '{{ result }}'
 
 - name: setup soc_2100p 2
   hosts: soc_2100p
@@ -73,14 +87,23 @@
   tasks:
     - name: Execute virtio_lan_config.sh script
       shell:
-        cmd: "sh virtio_lan_config.sh 128"
+        cmd: "timeout 300 sh virtio_lan_config.sh 128"
         chdir: "/root/kongqd/lan_mac_config_wuhan/"
+        register: result
+      debug:
+          msg: '{{ result }}'
 
     - name: Insmod ysk2.ko
       shell:
         cmd: "insmod ysk2.ko k2_soc"
         chdir: "/root/lan_mac_config/icbc/ysk2_soc_nvme_net/src"
+        register: result
+      debug:
+          msg: '{{ result }}'
 
     - name: setup_ovs
       shell:
         cmd: "sh ~/zgh/setup_ovs.sh"
+        register: result
+      debug:
+          msg: '{{ result }}'
