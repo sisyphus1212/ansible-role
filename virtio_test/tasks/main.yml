@@ -48,9 +48,10 @@
       failed_when: np_result.rc != 0
 
 - name: Rboot System
-  import_tasks: reboot_system.yml
-  vars:
-    host: "{{ host_2100p }}"
+  tasks:
+    - include: reboot_system.yml
+      vars:
+        host: "{{ host_2100p }}"
 
 #- name:
 - name: Host Probe Virtio-net Driver and Check Result
