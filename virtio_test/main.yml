@@ -13,8 +13,8 @@
   tasks:
     - include: bitstream_loading.yml
       vars:
-        exec_bin: "{{ vivado_bin }}"
-        program_tcl:  "{{ virtio_program_c_tcl }}"
+        exec_bin: "{{ vivado_lb_bin }}"
+        program_tcl:  "{{ virtio_program_b_tcl }}"
 
 - name: Rboot System
   tasks:
