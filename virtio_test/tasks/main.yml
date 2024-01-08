@@ -16,8 +16,8 @@
         exec_bin: "{{ vivado_bin }}"
         program_tcl:  "{{ virtio_program_c_tcl }}"
 
-- name: Rboot System
-  import_tasks: reboot_system.yml
+- name: Program device b
+  - include: reboot_system.yml
   vars:
     host: "{{ soc_2100p or host_2100p }}"
 
