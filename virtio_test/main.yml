@@ -102,16 +102,3 @@
         cmd: "sh ~/zgh/setup_ovs.sh"
       register: insmod
       failed_when: insmod.rc != 0
-
-#
-#- name: Trex_udp_test server start
-#  import_tasks: start_trex_udp_client.yml
-#  when: soc_2100p and udp
-#
-#- name: Trex_udp_test client start
-#  import_tasks: start_trex_udp_client.yml
-#  when: soc_2100p and tcp
-
-#- name: cpoy tool to target host
-#  import_tasks: copy_file.yml
-#  when: host_2100p
