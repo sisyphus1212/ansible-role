@@ -42,22 +42,16 @@
       shell:
         cmd: "sh virtio_mac_config.sh"
         chdir: "/root/kongqd/lan_mac_config_wuhan"
-      register: virtio_result
-      failed_when: virtio_result.rc != 0
 
     - name: Execute 01_ltm_doe.sh script
       shell:
         cmd: "sh 01_ltm_doe.sh"
         chdir: "/root/kongqd/lan_mac_config_wuhan/script"
-      register: ltm_result
-      failed_when: ltm_result.rc != 0
 
     - name: Execute multiple scripts for 2100_np2.0
       shell:
         cmd: "./init_disable_np.sh && ./init_dpdk_debug.sh && ./nvme_mac.sh && ./init_enable_np.sh"
         chdir: "/root/kongqd/lan_mac_config_wuhan/script/03_2100_np2.0"
-      register: np_result
-      failed_when: np_result.rc != 0
 
 - name: reboot host
   hosts: host_2100p
@@ -72,8 +66,6 @@
       shell:
         cmd: "modprobe virtio_net"
       register: result
-      failed_when:  result.rc != 0
-      changed_when: false
 
 - name: setup soc_2100p 2
   hosts: soc_2100p
@@ -83,18 +75,12 @@
       shell:
         cmd: "sh virtio_lan_config.sh 128"
         chdir: "/root/kongqd/lan_mac_config_wuhan/"
-      register: virtio_lan_config
-      failed_when: virtio_lan_config.rc != 0
 
     - name: Insmod ysk2.ko
       shell:
         cmd: "insmod ysk2.ko k2_soc"
         chdir: "/root/lan_mac_config/icbc/ysk2_soc_nvme_net/src"
-      register: insmod
-      failed_when: insmod.rc != 0
 
     - name: setup_ovs
       shell:
         cmd: "sh ~/zgh/setup_ovs.sh"
-      register: insmod
-      failed_when: insmod.rc != 0
