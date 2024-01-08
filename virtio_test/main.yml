@@ -71,12 +71,12 @@
     - name: reboot host
       reboot:
 
-    - name: Host Probe Virtio-net Driver and Check Result
-      shell:
-        cmd: "modprobe virtio_net && rmmod virtio_net"
-      register: modprobe
-    - debug:
-        msg: '{{ modprobe }}'
+    #- name: Host Probe Virtio-net Driver and Check Result
+    #  shell:
+    #    cmd: "modprobe virtio_net && rmmod virtio_net"
+    #  register: modprobe
+    #- debug:
+    #    msg: '{{ modprobe }}'
     - name: start trex server
       shell:
         cmd: "sh /root/lcj/tmux_host_udp.sh"
