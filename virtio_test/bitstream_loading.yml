@@ -1,25 +1,24 @@
 - name: Get Vivado Base Directory "{{program_tcl}}"
-  task:
-    - vars:
-      base_dir: "{{ exec_bin | dirname }}"
-      exec_bin: "{{ exec_bin | basename }}"
-      tcl_path: "/tmp/{{ program_tcl }}"
+  - vars:
+    base_dir: "{{ exec_bin | dirname }}"
+    exec_bin: "{{ exec_bin | basename }}"
+    tcl_path: "/tmp/{{ program_tcl }}"
 
-    - debug:
-        msg: "Program Device Result: {{ base_dir }} | {{ exec_bin }}"
+  - debug:
+      msg: "Program Device Result: {{ base_dir }} | {{ exec_bin }}"
 
-    - name: Check path "{{program_tcl}}"
-      include: copy_file.yml
-      vars:
-        src_file: "{{ program_tcl }}"
-        dst_file: "{{ tcl_path }}"
+  - name: Check path "{{program_tcl}}"
+    include: copy_file.yml
+    vars:
+      src_file: "{{ program_tcl }}"
+      dst_file: "{{ tcl_path }}"
 
-    - name: Program Device "{{program_tcl}}"
-      register: result
-      shell:
-        chdir: "{{ base_dir }}"
-        cmd: "./{{ exec_bin }} -mode tcl -source {{ tcl_path }}"
-        warn: false
+  - name: Program Device "{{program_tcl}}"
+    register: result
+    shell:
+      chdir: "{{ base_dir }}"
+      cmd: "./{{ exec_bin }} -mode tcl -source {{ tcl_path }}"
+      warn: false
 
-    - debug:
-        msg: "Program Device Result: {{ result }}"
+  - debug:
+      msg: "Program Device Result: {{ result }}"
