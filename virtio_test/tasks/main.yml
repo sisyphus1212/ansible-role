@@ -17,9 +17,10 @@
         program_tcl:  "{{ virtio_program_c_tcl }}"
 
 - name: Rboot System
-  - include: reboot_system.yml
-    vars:
-      host: "{{ soc_2100p or host_2100p }}"
+  tasks:
+    - include: reboot_system.yml
+      vars:
+        host: "{{ soc_2100p or host_2100p }}"
 
 - name: setup soc_2100p
   hosts: soc_2100p
