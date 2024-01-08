@@ -5,7 +5,7 @@
     tcl_path: "/tmp/{{ program_tcl }}"
 
 - debug:
-    msg: "Program Device Result: {{ base_dir }} | {{ var_exec_bin }}"
+    msg: "Program Device Result: {{ var_base_dir }} | {{ var_exec_bin }}"
 
 - name: Check path "{{program_tcl}}"
   include: copy_file.yml
