@@ -1,0 +1,11 @@
+all:
+  vars:
+    all: False
+    ungrouped: False
+    host_2100p: False
+    soc_2100p: False
+    cx5: False
+    vivado_bin: "/tools/Xilinx/Vivado/2020.2/bin/vivado"
+    virtio_program_c_tcl: "tcl/virtio_program_split_c.tcl"
+    vivado_lb_bin: "/home/np/kongqd/Vivado_Lab/2023.2/bin/vivado_lab"
+    virtio_program_b_tcl: "tcl/virtio_program_split_b.tcl"
