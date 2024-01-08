@@ -5,7 +5,7 @@
 192.168.28.198 ansible_ssh_user=root ansible_ssh_pass=hados
 
 [cx5]
-192.168.28.195 ansible_ssh_user=root ansible_ssh_pass=hados
+192.168.28.195 ansible_ssh_user=np ansible_ssh_pass=Yusur@28114
 
 #[all:vars]
 #soc_2100p=False
