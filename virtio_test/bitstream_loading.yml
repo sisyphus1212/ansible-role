@@ -1,10 +1,11 @@
-- vars:
-  base_dir: "{{ exec_bin | dirname }}"
-  exec_bin: "{{ exec_bin | basename }}"
-  tcl_path: "/tmp/{{ program_tcl }}"
+- name: Set base_dir and exec_bin
+  set_fact:
+    var_base_dir: "{{ exec_bin | dirname }}"
+    var_exec_bin: "{{ exec_bin | basename }}"
+    tcl_path: "/tmp/{{ program_tcl }}"
 
 - debug:
-    msg: "Program Device Result: {{ base_dir }} | {{ exec_bin }}"
+    msg: "Program Device Result: {{ base_dir }} | {{ var_exec_bin }}"
 
 - name: Check path "{{program_tcl}}"
   include: copy_file.yml
@@ -15,8 +16,8 @@
 - name: Program Device "{{program_tcl}}"
   register: result
   shell:
-    chdir: "{{ base_dir }}"
-    cmd: "./{{ exec_bin }} -mode tcl -source {{ tcl_path }}"
+    chdir: "{{ var_base_dir }}"
+    cmd: "./{{ var_exec_bin }} -mode tcl -source {{ tcl_path }}"
     warn: false
 
 - debug:
