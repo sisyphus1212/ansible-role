@@ -87,7 +87,7 @@
         cmd: "timeout 300 sh virtio_lan_config.sh 128"
         chdir: "/root/kongqd/lan_mac_config_wuhan/"
       register: virtio_lan_config
-      ignore_errors: yes
+      ignore_errors: True
     - debug:
         msg: '{{ virtio_lan_config }}'
 
