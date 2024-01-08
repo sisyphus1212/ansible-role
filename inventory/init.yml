@@ -1,9 +1,0 @@
-- hosts: localhost
-  gather_facts: false
-  tasks:
-    - name: Generate inventory vars from template
-      template:
-        src: "group_vars.j2"
-        dest: "./host/{{ case_name }}.yml"
-      delegate_to: localhost
-      run_once: true
