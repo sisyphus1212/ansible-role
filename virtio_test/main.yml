@@ -77,9 +77,9 @@
     #  register: modprobe
     #- debug:
     #    msg: '{{ modprobe }}'
-    - name: start trex server
-      shell:
-        cmd: "sh /root/lcj/tmux_host_udp.sh"
+    #- name: start trex server
+    #  shell:
+    #    cmd: "sh /root/lcj/tmux_host_udp.sh"
 
 - name: setup soc_2100p step 2
   hosts: soc_2100p
